@@ -25,6 +25,7 @@ jobs:
       
       - name: Update Branch
         run: |
+          git remote add home-manager https://github.com/nix-community/home-manager.git
           git fetch home-manager
           git reset --hard home-manager/master
 

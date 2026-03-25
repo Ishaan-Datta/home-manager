@@ -1,0 +1,40 @@
+name: Sync Upstream
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v6
+        with:
+          ref: master
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      
+      - name: Update Branch
+        run: |
+          git fetch home-manager
+          git reset --hard home-manager/master
+
+      - name: Apply Patches
+        run: |
+            # detect conflicts
+            if ! git cherry-pick <commit>; then
+              exit 1
+            fi
+
+            git push origin HEAD:master --force-with-lease
+
+

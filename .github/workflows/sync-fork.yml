@@ -30,11 +30,10 @@ jobs:
 
       - name: Apply Patches
         run: |
-            # detect conflicts
-            if ! git cherry-pick <commit>; then
-              exit 1
-            fi
+          if ! git cherry-pick 32e4985e938ecf023e99eedc1ead34626ec8feac; then
+            exit 1
+          fi
 
-            git push origin HEAD:master --force-with-lease
+          git push origin HEAD:master --force-with-lease
 
 

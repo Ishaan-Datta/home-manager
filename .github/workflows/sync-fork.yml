@@ -36,7 +36,8 @@ jobs:
             exit 1
           fi
 
-          rm -rf .github
+          git rm -r .github
+          git commit -m "Remove .github from fork"
           git push origin HEAD:master --force-with-lease
 
 

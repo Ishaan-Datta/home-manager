@@ -32,6 +32,7 @@ in
           k: v: {
             _class = "homeManager";
             _file = "${toString moduleLocation}#homeModules.${k}";
+            key = "homeModules.${k}";
             imports = [ v ];
           }
         );

@@ -27,14 +27,16 @@ jobs:
         run: |
           git remote add home-manager https://github.com/nix-community/home-manager.git
           git fetch home-manager
+          git fetch origin patch
           git reset --hard home-manager/master
 
       - name: Apply Patches
         run: |
-          if ! git cherry-pick 32e4985e938ecf023e99eedc1ead34626ec8feac; then
+          if ! git cherry-pick origin/patch; then
             exit 1
           fi
 
+          rm -rf .github
           git push origin HEAD:master --force-with-lease
 
 
